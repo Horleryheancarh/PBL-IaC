@@ -34,7 +34,7 @@ resource "aws_security_group" "ext_alb_sg" {
   tags = merge(
     var.tags,
     {
-      Name = "Ext_ALB_sg"
+      Name = "Ext-ALB-sg"
     }
   )
 }
@@ -78,7 +78,7 @@ resource "aws_security_group" "bastion_sg" {
   tags = merge(
     var.tags,
     {
-      Name = "Bastion_sg"
+      Name = "Bastion-sg"
     }
   )
 }
@@ -102,7 +102,7 @@ resource "aws_security_group" "nginx_sg" {
   tags = merge(
     var.tags,
     {
-      Name = "Nginx_sg"
+      Name = "Nginx-sg"
     }
   )
 }
@@ -156,7 +156,7 @@ resource "aws_security_group" "int_alb_sg" {
   tags = merge(
     var.tags,
     {
-      Name = "Int_ALB_sg"
+      Name = "Int-ALB-sg"
     }
   )
 }
@@ -200,7 +200,7 @@ resource "aws_security_group" "webserver_sg" {
   tags = merge(
     var.tags,
     {
-      Name = "WebServer_sg"
+      Name = "WebServer-sg"
     }
   )
 }
@@ -254,7 +254,7 @@ resource "aws_security_group" "datalayer_sg" {
   tags = merge(
     var.tags,
     {
-      Name = "Datalayer_sg"
+      Name = "Datalayer-sg"
     }
   )
 }

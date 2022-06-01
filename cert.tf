@@ -43,7 +43,7 @@ resource "aws_route53_record" "tooling" {
   alias {
     name                   = aws_lb.ext_alb.dns_name
     zone_id                = aws_lb.ext_alb.zone_id
-    evaluate_health_target = true
+    evaluate_target_health = true
   }
 }
 
@@ -56,6 +56,6 @@ resource "aws_route53_record" "wordpress" {
   alias {
     name                   = aws_lb.ext_alb.dns_name
     zone_id                = aws_lb.ext_alb.zone_id
-    evaluate_health_target = true
+    evaluate_target_health = true
   }
 }
