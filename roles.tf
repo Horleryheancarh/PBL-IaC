@@ -32,9 +32,9 @@ resource "aws_iam_policy" "policy" {
     Statement = [
       {
         Action   = ["ec2:Describe*"]
-        Effect   = Allow
+        Effect   = "Allow"
         Resource = "*"
-      }
+      },
     ]
   })
 
@@ -48,12 +48,13 @@ resource "aws_iam_policy" "policy" {
 
 # Attach the policy to the role
 resource "aws_iam_policy_attachment" "test_attach" {
-  role   = aws_iam_role.ec2_instance_role.name
-  policy = aws_iam_policy.policy.arn
+  name       = "test_attach"
+  roles      = aws_iam_role.ec2_instance_role.name
+  policy_arn = aws_iam_policy.policy.arn
 }
 
 # Create an Instance Profile and interpolate the IAM role
-resource "aws_iam_instance" "ip" {
+resource "aws_iam_instance_profile" "ip" {
   name = "aws_instance_profile_test"
   role = aws_iam_role.ec2_instance_role.name
 }

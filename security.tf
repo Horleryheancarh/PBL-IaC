@@ -40,7 +40,7 @@ resource "aws_security_group" "ext_alb_sg" {
 }
 
 # Add rule to allow ssh access from bastion_sg
-resource "aws_security_group_rule" "inbound_bastion_ssh" {
+resource "aws_security_group_rule" "inbound_ext_alb_ssh" {
   type                     = "ingress"
   from_port                = 22
   to_port                  = 22
@@ -128,7 +128,7 @@ resource "aws_security_group_rule" "inbound_nginx_https" {
 }
 
 # Add rule to allow ssh access from bastion_sg
-resource "aws_security_group_rule" "inbound_bastion_ssh" {
+resource "aws_security_group_rule" "inbound_nginx_ssh" {
   type                     = "ingress"
   from_port                = 22
   to_port                  = 22
@@ -226,7 +226,7 @@ resource "aws_security_group_rule" "inbound_web_https" {
 }
 
 # Add rule to allow ssh access from bastion_sg
-resource "aws_security_group_rule" "inbound_bastion_ssh" {
+resource "aws_security_group_rule" "inbound_webserver_ssh" {
   type                     = "ingress"
   from_port                = 22
   to_port                  = 22
@@ -270,7 +270,7 @@ resource "aws_security_group_rule" "inbound_nfs_port" {
 }
 
 # Add rule to allow MySQL traffic from webserver_sg
-resource "aws_security_group_rule" "inbound_web_https" {
+resource "aws_security_group_rule" "inbound_webserver_mysql" {
   type                     = "ingress"
   from_port                = 3306
   to_port                  = 3306
@@ -280,7 +280,7 @@ resource "aws_security_group_rule" "inbound_web_https" {
 }
 
 # Add rule to allow MySQL access from bastion_sg
-resource "aws_security_group_rule" "inbound_bastion_ssh" {
+resource "aws_security_group_rule" "inbound_datalayer_mysql" {
   type                     = "ingress"
   from_port                = 3306
   to_port                  = 3306
