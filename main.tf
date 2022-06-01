@@ -25,8 +25,9 @@ data "aws_availability_zones" "available" {
 }
 
 # Create public subnets
-resource "aws_subnet" "public" {
+resource "aws_subnet" "public_subnet" {
 
+  # Count to change the availability zones and auto modify the Name tag
   count                   = var.preferred_number_of_public_subnets == null ? length(data.aws_availability_zones.available.names) : var.preferred_number_of_public_subnets
   vpc_id                  = aws_vpc.main.id
   cidr_block              = cidrsubnet(var.vpc_cidr, 8, count.index)
@@ -42,13 +43,14 @@ resource "aws_subnet" "public" {
 }
 
 # Create private subnets
-resource "aws_subnet" "private" {
+resource "aws_subnet" "private_subnet" {
 
   count                   = var.preferred_number_of_private_subnets == null ? length(data.aws_availability_zones.available.names) : var.preferred_number_of_private_subnets
   vpc_id                  = aws_vpc.main.id
   cidr_block              = cidrsubnet(var.vpc_cidr, 8, count.index + var.preferred_number_of_public_subnets)
   map_public_ip_on_launch = true
-  availability_zone       = element(data.aws_availability_zones.available.names, count.index)
+  # element works like modulus (%length_of_array)
+  availability_zone = element(data.aws_availability_zones.available.names, count.index)
 
   tags = merge(
     var.tags,
