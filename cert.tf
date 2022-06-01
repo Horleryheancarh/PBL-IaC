@@ -31,7 +31,7 @@ resource "aws_route53_record" "yinkadevops" {
 # Validate the certificate using DNS
 resource "aws_acm_certificate_validation" "yinkadevops" {
   certificate_arn         = aws_acm_certificate.yinkadevops.arn
-  validation_record_fqdns = [for record in aws_route53_record.yinkadevops : record.fqdns]
+  validation_record_fqdns = [for record in aws_route53_record.yinkadevops : record.fqdn]
 }
 
 # Create records for tooling
