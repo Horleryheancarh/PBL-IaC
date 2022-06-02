@@ -54,7 +54,7 @@ resource "aws_lb" "int_alb" {
   internal           = true
   load_balancer_type = "application"
   security_groups    = [aws_security_group.int_alb_sg.id]
-  subnets            = [for subnet in aws_subnet.private_subnet : subnet.id]
+  subnets            = [aws_subnet.private_subnet[0].id, aws_subnet.private_subnet[1].id]
   ip_address_type    = "ipv4"
 
   tags = merge(

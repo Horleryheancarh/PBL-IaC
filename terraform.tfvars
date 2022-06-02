@@ -12,6 +12,8 @@ enable_classiclink_dns_support = "false"
 
 preferred_number_of_public_subnets = 2
 
+name = "yinkadevops"
+
 tags = {
   Environment = "dev"
   Owner       = "Yheancarh"
