@@ -24,7 +24,7 @@ account_no = "811382253948"
 
 master-username = "yheancarh"
 
-master-password = "@dm!n1234"
+master-password = "dm!n1234"
 
 tags = {
   Environment = "dev"

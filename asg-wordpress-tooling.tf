@@ -2,7 +2,7 @@
 resource "aws_launch_template" "wordpress_launch_template" {
   image_id               = var.ami
   instance_type          = "t2.micro"
-  vpc_security_group_ids = [aws_security_group.webserver_sg]
+  vpc_security_group_ids = [aws_security_group.webserver_sg.id]
 
   iam_instance_profile {
     name = aws_iam_instance_profile.ip.id
@@ -11,7 +11,7 @@ resource "aws_launch_template" "wordpress_launch_template" {
   key_name = var.keypair
 
   placement {
-    availability_zone = random_shuffle.az_list.result
+    availability_zone = "random_shuffle.az_list.result"
   }
 
   lifecycle {
@@ -65,7 +65,7 @@ resource "aws_autoscaling_attachment" "asg_attachment_wordpress" {
 resource "aws_launch_template" "tooling_launch_template" {
   image_id               = var.ami
   instance_type          = "t2.micro"
-  vpc_security_group_ids = [aws_security_group.webserver_sg]
+  vpc_security_group_ids = [aws_security_group.webserver_sg.id]
 
   iam_instance_profile {
     name = aws_iam_instance_profile.ip.id
@@ -74,7 +74,7 @@ resource "aws_launch_template" "tooling_launch_template" {
   key_name = var.keypair
 
   placement {
-    availability_zone = random_shuffle.az_list.result
+    availability_zone = "random_shuffle.az_list.result"
   }
 
   lifecycle {
@@ -121,5 +121,5 @@ resource "aws_autoscaling_group" "tooling_asg" {
 # Attaching Auto Scaling Group of tooling to internal ALB
 resource "aws_autoscaling_attachment" "asg_attachment_tooling" {
   autoscaling_group_name = aws_autoscaling_group.tooling_asg.id
-  lb_target_group_arn    = aws_lb_target_group.tooling_tgt
+  lb_target_group_arn    = aws_lb_target_group.tooling_tgt.arn
 }
