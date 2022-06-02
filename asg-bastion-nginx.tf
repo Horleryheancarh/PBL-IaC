@@ -1,10 +1,10 @@
 # Create SNS Topic for all Auto Scaling Groups
-resource "aws_sns_topic" "yinkadevops_sns" {
+resource "aws_sns_topic" "yheancarh_sns" {
   name = "Default_CloudWatch_Alarms_Topic"
 }
 
 # Create notification for all Auto Scaling Groups
-resource "aws_autoscaling_notification" "yinkadevops_notifications" {
+resource "aws_autoscaling_notification" "yheancarh_notifications" {
   group_names = [
     aws_autoscaling_group.bastion_asg.name,
     aws_autoscaling_group.nginx_asg.name,
@@ -19,7 +19,7 @@ resource "aws_autoscaling_notification" "yinkadevops_notifications" {
     "autoscaling:EC2_INSTANCE_TERMINATE_ERROR",
   ]
 
-  topic_arn = aws_sns_topic.yinkadevops_sns.arn
+  topic_arn = aws_sns_topic.yheancarh_sns.arn
 }
 
 
@@ -64,7 +64,7 @@ resource "aws_launch_template" "bastion_launch_template" {
 
 # Auto Scaling for Bastion
 resource "aws_autoscaling_group" "bastion_asg" {
-  name                      = "bastion-asg"
+  name                      = "bastion_asg"
   max_size                  = 2
   min_size                  = 1
   health_check_grace_period = 300
@@ -80,7 +80,7 @@ resource "aws_autoscaling_group" "bastion_asg" {
 
   tag {
     key                 = "Name"
-    value               = "bastion-launch-template"
+    value               = "Bastion_launch_template"
     propagate_at_launch = true
   }
 }
@@ -121,7 +121,7 @@ resource "aws_launch_template" "nginx_launch_template" {
 
 # Auto Scaling for Nginx
 resource "aws_autoscaling_group" "nginx_asg" {
-  name                      = nginx-asg
+  name                      = "nginx_asg"
   max_size                  = 2
   min_size                  = 1
   health_check_grace_period = 300
@@ -137,7 +137,7 @@ resource "aws_autoscaling_group" "nginx_asg" {
 
   tag {
     key                 = "Name"
-    value               = "nginx-launch-template"
+    value               = "Nginx_launch_template"
     propagate_at_launch = true
   }
 }

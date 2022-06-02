@@ -1,37 +1,67 @@
 variable "region" {
-  default = "us-east-2"
+  type        = string
+  description = "Region to deploy resources"
 }
 
 variable "vpc_cidr" {
-  default = "172.16.0.0/16"
+  type        = string
+  description = "The VPC CIDR"
 }
 
 variable "enable_dns_support" {
-  default = "true"
+  type = bool
 }
 
 variable "enable_dns_hostnames" {
-  default = "true"
+  type = bool
 }
 
 variable "enable_classiclink" {
-  default = "false"
+  type = bool
 }
 
 variable "enable_classiclink_dns_support" {
-  default = "false"
+  type = bool
 }
 
 variable "preferred_number_of_public_subnets" {
-  default = 2
+  type        = number
+  description = "Number of public subnets"
 }
 
 variable "preferred_number_of_private_subnets" {
-  default = 4
+  type        = number
+  description = "Number of private subnets"
 }
 
 variable "name" {
+  type    = string
   default = "Yheancarh"
+}
+
+variable "ami" {
+  type        = string
+  description = "AMI ID for launching templates"
+}
+
+variable "keypair" {
+  type        = string
+  description = "Keypair for the instances"
+}
+
+variable "account_no" {
+  type        = string
+  description = "The AWS account number"
+}
+
+variable "master-username" {
+  type        = string
+  description = "RDS admin username"
+}
+
+variable "master-password" {
+  type        = string
+  description = "RDS admin password"
 }
 
 variable "tags" {

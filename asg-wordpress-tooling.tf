@@ -34,7 +34,7 @@ resource "aws_launch_template" "wordpress_launch_template" {
 
 # Auto Scaling for Wordpress
 resource "aws_autoscaling_group" "wordpress_asg" {
-  name                      = wordpress-asg
+  name                      = "wordpress_asg"
   max_size                  = 2
   min_size                  = 1
   health_check_grace_period = 300
@@ -50,7 +50,7 @@ resource "aws_autoscaling_group" "wordpress_asg" {
 
   tag {
     key                 = "Name"
-    value               = "wordpress-launch-template"
+    value               = "Wordpress_launch_template"
     propagate_at_launch = true
   }
 }
@@ -97,7 +97,7 @@ resource "aws_launch_template" "tooling_launch_template" {
 
 # Auto Scaling for Tooling
 resource "aws_autoscaling_group" "tooling_asg" {
-  name                      = tooling-asg
+  name                      = "tooling_asg"
   max_size                  = 2
   min_size                  = 1
   health_check_grace_period = 300
@@ -113,7 +113,7 @@ resource "aws_autoscaling_group" "tooling_asg" {
 
   tag {
     key                 = "Name"
-    value               = "tooling-launch-template"
+    value               = "Tooling_launch_template"
     propagate_at_launch = true
   }
 }

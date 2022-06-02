@@ -39,7 +39,7 @@ resource "aws_lb_listener" "nginx_listener" {
   port              = 443
   protocol          = "HTTPS"
   ssl_policy        = "ELBSecurityPolicy-2016-08"
-  certificate_arn   = aws_acm_certificate_validation.yinkadevops.certificate_arn
+  certificate_arn   = aws_acm_certificate_validation.yheancarh_cert_val.certificate_arn
 
   default_action {
     type             = "forward"
@@ -107,7 +107,7 @@ resource "aws_lb_listener" "wordpress_listener" {
   port              = 443
   protocol          = "HTTPS"
   ssl_policy        = "ELBSecurityPolicy-2016-08"
-  certificate_arn   = aws_acm_certificate_validation.yinkadevops.certificate_arn
+  certificate_arn   = aws_acm_certificate_validation.yheancarh_cert_val.certificate_arn
 
   default_action {
     type             = "forward"
