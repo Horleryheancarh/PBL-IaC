@@ -1,6 +1,6 @@
 # Create a key from AWS KMS
 resource "aws_kms_key" "yheancarh_kms" {
-  description = "KMS key"
+  description = "KMS key "
   policy      = <<EOF
 	{
 		"Version": "2012-10-17",
@@ -9,7 +9,11 @@ resource "aws_kms_key" "yheancarh_kms" {
 			{
 				"Sid": "Enable IAM User Permissions",
 				"Effect": "Allow",
-				"Principal": { "AWS": "arn:aws:iam::${var.account_no}:user/Olayinka" },
+				"Principal": { "AWS": [
+            "arn:aws:iam::${var.account_no}:user/Ishola",
+            "arn:aws:iam::${var.account_no}:user/terraform"
+            ]
+          },
 				"Action": "kms:*",
 				"Resource": "*"
 			}

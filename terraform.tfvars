@@ -16,7 +16,7 @@ preferred_number_of_private_subnets = 4
 
 name = "yheancarh"
 
-ami = "ami-0b0af3577fe5e3532"
+ami = "ami-0eea504f45ef7a8f7"
 
 keypair = "first"
 
