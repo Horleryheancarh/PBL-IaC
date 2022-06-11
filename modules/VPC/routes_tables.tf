@@ -10,6 +10,13 @@ resource "aws_route_table" "private_rtb" {
   )
 }
 
+# Create route for public route table and attach the internet gateway
+resource "aws_route" "private_rtb_route" {
+  route_table_id         = aws_route_table.private_rtb.id
+  destination_cidr_block = "0.0.0.0/0"
+  gateway_id             = aws_nat_gateway.nat.id
+}
+
 # Associate private subnets to private route table
 resource "aws_route_table_association" "private_subnet_association" {
   count          = length(aws_subnet.private_subnet[*].id)

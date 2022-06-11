@@ -1,6 +1,6 @@
 # Create certificate for all domains in yheancarh.tk
 resource "aws_acm_certificate" "yheancarh_cert" {
-  domain_name       = "*.yinkadevops.tk"
+  domain_name       = var.domain_name
   validation_method = "DNS"
 }
 
@@ -37,7 +37,7 @@ resource "aws_acm_certificate_validation" "yheancarh_cert_val" {
 # Create records for tooling
 resource "aws_route53_record" "tooling" {
   zone_id = data.aws_route53_zone.yheancarh_zone.zone_id
-  name    = "tooling.yinkadevops.tk"
+  name    = var.tooling_domain
   type    = "A"
 
   alias {
@@ -50,7 +50,7 @@ resource "aws_route53_record" "tooling" {
 # Create records for wordpress
 resource "aws_route53_record" "wordpress" {
   zone_id = data.aws_route53_zone.yheancarh_zone.zone_id
-  name    = "wordpress.yinkadevops.tk"
+  name    = var.wordpress_domain
   type    = "A"
 
   alias {

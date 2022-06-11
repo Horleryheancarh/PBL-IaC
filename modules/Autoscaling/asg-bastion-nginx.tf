@@ -22,6 +22,10 @@ resource "aws_autoscaling_notification" "yheancarh_notifications" {
   topic_arn = aws_sns_topic.yheancarh_sns.arn
 }
 
+# Get list of availability zones
+data "aws_availability_zones" "available" {
+  state = "available"
+}
 
 # Get list of AZs
 resource "random_shuffle" "az_list" {
@@ -31,11 +35,11 @@ resource "random_shuffle" "az_list" {
 # Create Launch Template for Bastion
 resource "aws_launch_template" "bastion_launch_template" {
   image_id               = var.ami
-  instance_type          = "t2.micro"
-  vpc_security_group_ids = [aws_security_group.bastion_sg.id]
+  instance_type          = var.instance_type
+  vpc_security_group_ids = var.bastion_sg
 
   iam_instance_profile {
-    name = aws_iam_instance_profile.ip.id
+    name = var.instance_profile
   }
 
   key_name = var.keypair
@@ -65,13 +69,13 @@ resource "aws_launch_template" "bastion_launch_template" {
 # Auto Scaling for Bastion
 resource "aws_autoscaling_group" "bastion_asg" {
   name                      = "bastion_asg"
-  max_size                  = 2
-  min_size                  = 1
+  max_size                  = var.max_size
+  min_size                  = var.min_size
   health_check_grace_period = 300
   health_check_type         = "ELB"
-  desired_capacity          = 1
+  desired_capacity          = var.desired_capacity
 
-  vpc_zone_identifier = [for subnet in aws_subnet.public_subnet : subnet.id]
+  vpc_zone_identifier = var.private_subnets
 
   launch_template {
     id      = aws_launch_template.bastion_launch_template.id
@@ -88,11 +92,11 @@ resource "aws_autoscaling_group" "bastion_asg" {
 # Launch Template for Nginx
 resource "aws_launch_template" "nginx_launch_template" {
   image_id               = var.ami
-  instance_type          = "t2.micro"
-  vpc_security_group_ids = [aws_security_group.webserver_sg.id]
+  instance_type          = var.instance_type
+  vpc_security_group_ids = var.nginx_sg
 
   iam_instance_profile {
-    name = aws_iam_instance_profile.ip.id
+    name = var.instance_profile
   }
 
   key_name = var.keypair
@@ -122,13 +126,13 @@ resource "aws_launch_template" "nginx_launch_template" {
 # Auto Scaling for Nginx
 resource "aws_autoscaling_group" "nginx_asg" {
   name                      = "nginx_asg"
-  max_size                  = 2
-  min_size                  = 1
+  max_size                  = var.max_size
+  min_size                  = var.min_size
   health_check_grace_period = 300
   health_check_type         = "ELB"
-  desired_capacity          = 1
+  desired_capacity          = var.desired_capacity
 
-  vpc_zone_identifier = [aws_subnet.private_subnet[0].id, aws_subnet.private_subnet[1].id]
+  vpc_zone_identifier = var.private_subnets
 
   launch_template {
     id      = aws_launch_template.nginx_launch_template.id
@@ -145,5 +149,5 @@ resource "aws_autoscaling_group" "nginx_asg" {
 # Attaching Auto Scaling Group of nginx to external ALB
 resource "aws_autoscaling_attachment" "asg_attachment_nginx" {
   autoscaling_group_name = aws_autoscaling_group.nginx_asg.id
-  lb_target_group_arn    = aws_lb_target_group.nginx_tgt.arn
+  lb_target_group_arn    = var.nginx_tgt
 }

@@ -44,14 +44,14 @@ resource "aws_efs_file_system" "yheancarh_efs" {
 # Create mount targets for EFS
 resource "aws_efs_mount_target" "subnet_1" {
   file_system_id  = aws_efs_file_system.yheancarh_efs.id
-  subnet_id       = aws_subnet.private_subnet[2].id
-  security_groups = [aws_security_group.datalayer_sg.id]
+  subnet_id       = var.efs_subnet_1
+  security_groups = var.efs_sg
 }
 
 resource "aws_efs_mount_target" "subnet_2" {
   file_system_id  = aws_efs_file_system.yheancarh_efs.id
-  subnet_id       = aws_subnet.private_subnet[3].id
-  security_groups = [aws_security_group.datalayer_sg.id]
+  subnet_id       = var.efs_subnet_2
+  security_groups = var.efs_sg
 }
 
 # Create access point for wordpress

@@ -12,8 +12,6 @@ resource "aws_eip" "nat_eip" {
   )
 }
 
-
-
 # Create NAT gateway
 resource "aws_nat_gateway" "nat" {
   allocation_id = aws_eip.nat_eip.id
