@@ -10,8 +10,16 @@ variable "desired_capacity" {
 	description = "Desired instance capacity"
 }
 
-variable "ami" {
-	description = "Ami for the EC2 intances"
+variable "ami-bastion" {
+	description = "Ami for the bastion intances"
+}
+
+variable "ami-nginx" {
+	description = "Ami for the nginx intances"
+}
+
+variable "ami-web" {
+	description = "Ami for the web intances"
 }
 
 variable "keypair" {

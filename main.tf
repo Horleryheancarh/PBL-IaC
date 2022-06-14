@@ -1,36 +1,36 @@
 # Note: The bucket name may not work for you since buckets are unique globally in AWS, so you must give it a unique name.
-resource "aws_s3_bucket" "terraform_state" {
-  bucket = "yheancarh-dev-terraform-bucket"
-}
-# Enable versioning so we can see the full revision history of our state files
-resource "aws_s3_bucket_versioning" "terraform_state" {
-  bucket = aws_s3_bucket.terraform_state.id
+# resource "aws_s3_bucket" "terraform_state" {
+#   bucket = "yheancarh-dev-terraform-bucket"
+# }
+# # Enable versioning so we can see the full revision history of our state files
+# resource "aws_s3_bucket_versioning" "terraform_state" {
+#   bucket = aws_s3_bucket.terraform_state.id
 
-  versioning_configuration {
-    status = "Enabled"
-  }
-}
+#   versioning_configuration {
+#     status = "Enabled"
+#   }
+# }
 
-# Enable server-side encryption by default
-resource "aws_s3_bucket_server_side_encryption_configuration" "terraform_state" {
-  bucket = aws_s3_bucket.terraform_state.bucket
-  rule {
-    apply_server_side_encryption_by_default {
-      sse_algorithm = "AES256"
-    }
-  }
-}
+# # Enable server-side encryption by default
+# resource "aws_s3_bucket_server_side_encryption_configuration" "terraform_state" {
+#   bucket = aws_s3_bucket.terraform_state.bucket
+#   rule {
+#     apply_server_side_encryption_by_default {
+#       sse_algorithm = "AES256"
+#     }
+#   }
+# }
 
 
-resource "aws_dynamodb_table" "terraform_locks" {
-  name         = "terraform-locks"
-  billing_mode = "PAY_PER_REQUEST"
-  hash_key     = "LockID"
-  attribute {
-    name = "LockID"
-    type = "S"
-  }
-}
+# resource "aws_dynamodb_table" "terraform_locks" {
+#   name         = "terraform-locks"
+#   billing_mode = "PAY_PER_REQUEST"
+#   hash_key     = "LockID"
+#   attribute {
+#     name = "LockID"
+#     type = "S"
+#   }
+# }
 
 
 # Creating VPC
@@ -79,7 +79,9 @@ module "ALB" {
 module "Autoscaling" {
   source           = "./modules/Autoscaling"
   vpc_id           = module.VPC.vpc_id
-  ami              = var.ami
+  ami-bastion      = var.ami-bastion
+  ami-nginx        = var.ami-nginx
+  ami-web          = var.ami-web
   instance_type    = "t2.micro"
   desired_capacity = 2
   min_size         = 2
@@ -120,7 +122,9 @@ module "RDS" {
 # Module for compute
 module "compute" {
   source          = "./modules/compute"
-  ami             = var.ami
+  ami-sonar       = var.ami-sonar
+  ami-jenkins     = var.ami-bastion
+  ami-jfrog       = var.ami-bastion
   subnets_compute = module.VPC.public_subnets-1
   sg_compute      = [module.security.ALB_sg]
   keypair         = var.keypair

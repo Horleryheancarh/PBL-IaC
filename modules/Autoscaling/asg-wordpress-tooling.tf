@@ -1,6 +1,6 @@
 # Launch Template for Wordpress
 resource "aws_launch_template" "wordpress_launch_template" {
-  image_id               = var.ami
+  image_id               = var.ami-web
   instance_type          = var.instance_type
   vpc_security_group_ids = var.webserver_sg
 
@@ -29,7 +29,7 @@ resource "aws_launch_template" "wordpress_launch_template" {
     )
   }
 
-  user_data = filebase64("${path.module}/wordpress.sh")
+  # user_data = filebase64("${path.module}/wordpress.sh")
 }
 
 # Auto Scaling for Wordpress
@@ -63,7 +63,7 @@ resource "aws_autoscaling_attachment" "asg_attachment_wordpress" {
 
 # Launch Template for Tooling
 resource "aws_launch_template" "tooling_launch_template" {
-  image_id               = var.ami
+  image_id               = var.ami-web
   instance_type          = var.instance_type
   vpc_security_group_ids = var.webserver_sg
 
@@ -92,7 +92,7 @@ resource "aws_launch_template" "tooling_launch_template" {
     )
   }
 
-  user_data = filebase64("${path.module}/tooling.sh")
+  # user_data = filebase64("${path.module}/tooling.sh")
 }
 
 # Auto Scaling for Tooling

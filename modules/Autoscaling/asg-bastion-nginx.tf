@@ -34,7 +34,7 @@ resource "random_shuffle" "az_list" {
 
 # Create Launch Template for Bastion
 resource "aws_launch_template" "bastion_launch_template" {
-  image_id               = var.ami
+  image_id               = var.ami-bastion
   instance_type          = var.instance_type
   vpc_security_group_ids = var.bastion_sg
 
@@ -63,7 +63,7 @@ resource "aws_launch_template" "bastion_launch_template" {
     )
   }
 
-  user_data = filebase64("${path.module}/bastion.sh")
+  # user_data = filebase64("${path.module}/bastion.sh")
 }
 
 # Auto Scaling for Bastion
@@ -91,7 +91,7 @@ resource "aws_autoscaling_group" "bastion_asg" {
 
 # Launch Template for Nginx
 resource "aws_launch_template" "nginx_launch_template" {
-  image_id               = var.ami
+  image_id               = var.ami-nginx
   instance_type          = var.instance_type
   vpc_security_group_ids = var.nginx_sg
 
@@ -120,7 +120,7 @@ resource "aws_launch_template" "nginx_launch_template" {
     )
   }
 
-  user_data = filebase64("${path.module}/nginx.sh")
+  # user_data = filebase64("${path.module}/nginx.sh")
 }
 
 # Auto Scaling for Nginx
