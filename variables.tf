@@ -39,9 +39,24 @@ variable "name" {
   default = "Yheancarh"
 }
 
-variable "ami" {
+variable "ami-web" {
   type        = string
-  description = "AMI ID for launching templates"
+  description = "AMI ID for launching web templates"
+}
+
+variable "ami-bastion" {
+  type        = string
+  description = "AMI ID for launching bastion templates"
+}
+
+variable "ami-nginx" {
+  type        = string
+  description = "AMI ID for launching nginx templates"
+}
+
+variable "ami-sonar" {
+  type        = string
+  description = "AMI ID for launching sonar templates"
 }
 
 variable "keypair" {
