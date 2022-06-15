@@ -4,7 +4,6 @@ locals {
     ext_alb_sg = {
       name        = "ext_alb_sg"
       description = "for external loadbalncer"
-
     }
 
     # security group for bastion
@@ -25,18 +24,22 @@ locals {
       description = "IALB security group"
     }
 
-
     # security group for webservers
     webserver_sg = {
       name        = "webserver_sg"
       description = "webservers security group"
     }
 
-
     # security group for data_layer
     datalayer_sg = {
       name        = "datalayer_sg"
       description = "data layer security group"
+    }
+
+    # security group for compute
+    compute_sg = {
+      name        = "compute_sg"
+      description = "compute security group"
     }
   }
 }
