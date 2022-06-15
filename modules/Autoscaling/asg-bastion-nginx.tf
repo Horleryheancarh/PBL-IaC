@@ -84,7 +84,7 @@ resource "aws_autoscaling_group" "bastion_asg" {
 
   tag {
     key                 = "Name"
-    value               = "Bastion_launch_template"
+    value               = "yheancarh-bastion"
     propagate_at_launch = true
   }
 }
@@ -141,7 +141,7 @@ resource "aws_autoscaling_group" "nginx_asg" {
 
   tag {
     key                 = "Name"
-    value               = "Nginx_launch_template"
+    value               = "yheancarh-nginx"
     propagate_at_launch = true
   }
 }

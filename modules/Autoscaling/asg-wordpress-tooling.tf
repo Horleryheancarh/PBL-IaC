@@ -50,7 +50,7 @@ resource "aws_autoscaling_group" "wordpress_asg" {
 
   tag {
     key                 = "Name"
-    value               = "Wordpress_launch_template"
+    value               = "yheancarh-wordpress"
     propagate_at_launch = true
   }
 }
@@ -113,7 +113,7 @@ resource "aws_autoscaling_group" "tooling_asg" {
 
   tag {
     key                 = "Name"
-    value               = "Tooling_launch_template"
+    value               = "yheancarh-tooling"
     propagate_at_launch = true
   }
 }
