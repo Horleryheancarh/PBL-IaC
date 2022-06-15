@@ -84,8 +84,8 @@ module "Autoscaling" {
   ami-nginx        = var.ami-nginx
   ami-web          = var.ami-web
   instance_type    = "t2.micro"
-  desired_capacity = 2
-  min_size         = 2
+  desired_capacity = 1
+  min_size         = 1
   max_size         = 2
   webserver_sg     = [module.security.web_sg]
   bastion_sg       = [module.security.bastion_sg]
