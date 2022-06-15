@@ -40,7 +40,6 @@ resource "aws_autoscaling_group" "wordpress_asg" {
   health_check_grace_period = 300
   health_check_type         = "ELB"
   desired_capacity          = var.desired_capacity
-
   vpc_zone_identifier = var.private_subnets
 
   launch_template {
@@ -103,7 +102,6 @@ resource "aws_autoscaling_group" "tooling_asg" {
   health_check_grace_period = 300
   health_check_type         = "ELB"
   desired_capacity          = var.desired_capacity
-
   vpc_zone_identifier = var.private_subnets 
 
   launch_template {
