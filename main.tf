@@ -127,7 +127,7 @@ module "compute" {
   ami-jenkins     = var.ami-bastion
   ami-jfrog       = var.ami-bastion
   subnets_compute = module.VPC.public_subnets-1
-  sg_compute      = [module.security.ALB_sg]
+  sg_compute      = [module.security.compute_sg]
   keypair         = var.keypair
   tags            = var.tags
 }
