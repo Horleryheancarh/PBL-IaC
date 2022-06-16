@@ -16,7 +16,7 @@ preferred_number_of_private_subnets = 4
 
 name = "yheancarh"
 
-ami-bastion = "ami-05908a69e7554ba77"
+ami-bastion = "ami-0786d0bc0abb6a3dc"
 
 ami-nginx = "ami-0c12005be71d5ff8f"
 
